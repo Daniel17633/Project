@@ -1,1 +1,20 @@
+SELECT Tables.table_id, Tables.table_number, SUM(Orders.total_price) AS revenue 
+FROM Orders 
+JOIN Tables ON Orders.table_id = Tables.table_id 
+WHERE Orders.order_date >= CURRENT_DATE - INTERVAL '30 days' 
+GROUP BY Tables.table_id, Tables.table_number 
+ORDER BY revenue DESC 
+LIMIT 1; 
 
+SELECT Dishes.name AS dish_name, 
+       json_agg(json_object('ingredient_name', Ingredients.name, 'quantity', DishIngredients.quantity, 'unit', Ingredients.unit)) AS ingredients 
+FROM Dishes -- Берем данные из таблицы Dishes
+LEFT JOIN DishIngredients ON Dishes.dish_id = DishIngredients.dish_id 
+LEFT JOIN Ingredients ON DishIngredients.ingredient_id = Ingredients.ingredient_id 
+GROUP BY Dishes.dish_id, Dishes.name; 
+
+SELECT Restaurants.restaurant_id, Restaurants.name, AVG(Reviews.rating) AS avg_rating 
+FROM Restaurants -- Берем данные из таблицы Restaurants
+LEFT JOIN Orders ON Restaurants.restaurant_id = Orders.restaurant_id -- включает рестораны без заказов
+LEFT JOIN Reviews ON Orders.order_id = Reviews.order_id -- включает заказы без отзывов
+GROUP BY Restaurants.restaurant_id, Restaurants.name; 
