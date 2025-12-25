@@ -9,7 +9,7 @@ LIMIT 1;
 
 --Ингридиенты блюда столбик массив его ингридиентоа в виде обьектов Jason agg Json will object
 SELECT Dishes.name AS dish_name, 
-       json_agg(json_object('ingredient_name', Ingredients.name, 'quantity', DishIngredients.quantity, 'unit', Ingredients.unit)) AS ingredients 
+       json_agg(json_build_object('ingredient_name', Ingredients.name, 'quantity', DishIngredients.quantity, 'unit', Ingredients.unit)) AS ingredients 
 FROM Dishes 
 LEFT JOIN DishIngredients ON Dishes.dish_id = DishIngredients.dish_id 
 LEFT JOIN Ingredients ON DishIngredients.ingredient_id = Ingredients.ingredient_id 
