@@ -109,3 +109,75 @@ CREATE TABLE DishIngredients (
     FOREIGN KEY (dish_id) REFERENCES Dishes(dish_id),
     FOREIGN KEY (ingredient_id) REFERENCES Ingredients(ingredient_id)
 );
+
+-- Вставка данных в таблицу Restaurants
+INSERT INTO Restaurants (restaurant_id, name, address, phone, email) VALUES
+(1, 'Итальянская Кухня', 'ул. Ленина, 10, Москва', '+7-495-123-45-67', 'info@italian.ru'),
+(2, 'Азиатский Ресторан', 'пр. Победы, 5, Санкт-Петербург', '+7-812-987-65-43', 'contact@asian.spb.ru');
+
+-- Вставка данных в таблицу Customers
+INSERT INTO Customers (customer_id, first_name, last_name, email, phone, address) VALUES
+(1, 'Иван', 'Иванов', 'ivan.ivanov@mail.ru', '+7-900-111-22-33', 'ул. Пушкина, 15, Москва'),
+(2, 'Мария', 'Петрова', 'maria.petrova@gmail.com', '+7-901-222-33-44', 'пр. Ленина, 20, Санкт-Петербург'),
+(3, 'Алексей', 'Сидоров', 'alex.sidorov@yandex.ru', '+7-902-333-44-55', 'ул. Гагарина, 8, Екатеринбург');
+
+-- Вставка данных в таблицу Suppliers
+INSERT INTO Suppliers (supplier_id, name, contact_email, phone) VALUES
+(1, 'Ферма Овощей', 'veg@farm.ru', '+7-495-555-66-77'),
+(2, 'Мясной Завод', 'meat@factory.ru', '+7-812-444-55-66');
+
+-- Вставка данных в таблицу Ingredients
+INSERT INTO Ingredients (ingredient_id, name, unit, supplier_id) VALUES
+(1, 'Томаты', 'кг', 1),
+(2, 'Моцарелла', 'кг', 2),
+(3, 'Говядина', 'кг', 2),
+(4, 'Рис', 'кг', 1),
+(5, 'Соевый соус', 'л', 1);
+
+-- Вставка данных в таблицу Chefs
+INSERT INTO Chefs (chef_id, first_name, last_name, specialization, restaurant_id) VALUES
+(1, 'Антонио', 'Росси', 'Итальянская кухня', 1),
+(2, 'Ли', 'Вонг', 'Азиатская кухня', 2);
+
+-- Вставка данных в таблицу Dishes
+INSERT INTO Dishes (dish_id, name, description, price, restaurant_id) VALUES
+(1, 'Маргарита', 'Классическая пицца с томатами и моцареллой', 450.00, 1),
+(2, 'Паста Карбонара', 'Паста с беконом и яйцом', 550.00, 1),
+(3, 'Бефстроганов', 'Говядина с грибами и сметаной', 650.00, 2),
+(4, 'Пад Тай', 'Тайская лапша с морепродуктами', 500.00, 2);
+
+-- Вставка данных в таблицу Tables
+INSERT INTO Tables (table_id, table_number, capacity, restaurant_id) VALUES
+(1, 1, 4, 1),
+(2, 2, 6, 1),
+(3, 1, 2, 2),
+(4, 2, 4, 2);
+
+-- Вставка данных в таблицу Orders
+INSERT INTO Orders (order_id, customer_id, restaurant_id, table_id, order_date, total_price, status, order_type) VALUES
+(1, 1, 1, 1, '2023-10-01 12:00:00'::timestamp, 1000.00, 'delivered', 'dine-in'),
+(2, 2, 2, 3, '2023-10-02 13:30:00'::timestamp, 1150.00, 'ready', 'takeaway'),
+(3, 3, 1, 2, '2023-10-03 19:00:00'::timestamp, 650.00, 'confirmed', 'delivery');
+
+-- Вставка данных в таблицу Reviews
+INSERT INTO Reviews (review_id, customer_id, order_id, rating, comment, date_posted) VALUES
+(1, 1, 1, 5, 'Отличная пицца!', '2023-10-01'::date),
+(2, 2, 2, 4, 'Вкусно, но долго ждал', '2023-10-02'::date),
+(3, 3, 3, 3, 'Нормально, но могло быть лучше', '2023-10-03'::date);
+
+-- Вставка данных в таблицу OrderItems
+INSERT INTO OrderItems (order_item_id, order_id, dish_id, quantity) VALUES
+(1, 1, 1, 2),  -- Заказ 1: 2 Маргариты
+(2, 1, 2, 1),  -- Заказ 1: 1 Паста Карбонара
+(3, 2, 3, 1),  -- Заказ 2: 1 Бефстроганов
+(4, 2, 4, 1),  -- Заказ 2: 1 Пад Тай
+(5, 3, 1, 1);  -- Заказ 3: 1 Маргарита
+
+-- Вставка данных в таблицу DishIngredients
+INSERT INTO DishIngredients (dish_ingredient_id, dish_id, ingredient_id, quantity) VALUES
+(1, 1, 1, 0.5),  -- Маргарита: 0.5 кг томатов
+(2, 1, 2, 0.3),  -- Маргарита: 0.3 кг моцареллы
+(3, 2, 3, 0.4),  -- Паста Карбонара: 0.4 кг говядины
+(4, 3, 3, 0.6),  -- Бефстроганов: 0.6 кг говядины
+(5, 4, 4, 0.2),  -- Пад Тай: 0.2 кг риса
+(6, 4, 5, 0.1);  -- Пад Тай: 0.1 л соевого соуса
