@@ -7,7 +7,7 @@ GROUP BY Tables.table_id, Tables.table_number
 ORDER BY revenue DESC 
 LIMIT 1;
 
---Ингридиенты блюда 1 столбик название блюда 2 столбик массив его ингридиентоа в виде обьектов Jason agg Json will object
+--Ингридиенты блюда столбик массив его ингридиентоа в виде обьектов Jason agg Json will object
 SELECT Dishes.name AS dish_name, 
        json_agg(json_object('ingredient_name', Ingredients.name, 'quantity', DishIngredients.quantity, 'unit', Ingredients.unit)) AS ingredients 
 FROM Dishes 
